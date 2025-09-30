@@ -7,8 +7,6 @@ using UnityEngine.UnityConsent;
 public class AnalyticsManager : MonoBehaviour
 {
     public static AnalyticsManager Instance;
-    private bool _IsInitialized = false;
-
     public object AnalyticsConsent { get; private set; }
 
     private void Awake()
@@ -28,15 +26,15 @@ public class AnalyticsManager : MonoBehaviour
         // Set consent state for analytics (replace with appropriate ConsentStatus value)
         EndUserConsent.SetConsentState(new ConsentState
         {
-            AdsIntent = ConsentStatus.Granted,
             AnalyticsIntent = ConsentStatus.Granted
-        }); // or ConsentStatus.Denied as needed
-        _IsInitialized = true;
+        }
+        ); // or ConsentStatus.Denied as needed
+        
     }
 
     public void Option1()
     {
-        AnalyticsService.Instance.RecordEvent("Chosen_option1");
+        AnalyticsService.Instance.RecordEvent("Chosen_option1"); // Makes it so you can see which option was chosen in the dashboard
         AnalyticsService.Instance.Flush(); // Ensure all analytics events are sent before quitting
         Debug.Log("Option 1 chosen");
     }
